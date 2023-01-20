@@ -9,7 +9,7 @@ The Patient-Oriented Eczema Measure (POEM) is the recommended the core outcome m
 The code is written in the R language for statistical computing (version 4.2.0) and the probabilistic programming language [Stan](https://mc-stan.org/) for the models. 
 Package dependencies can be found in [`renv.lock`](renv.lock).
 
-For this analysis, we used data from a randomised multi-centre dose-finding study for topical eczema treatment ([Clinicaltrials.gov NCT02564055](https://clinicaltrials.gov/ct2/show/NCT02564055), requested on [www.clinicalstudydatarequest.com](www.clinicalstudydatarequest.com), study 203121). 
+For this analysis, we used data from a randomised multi-centre dose-finding study for topical eczema treatment ([Clinicaltrials.gov NCT02564055](https://clinicaltrials.gov/ct2/show/NCT02564055), requested on [www.clinicalstudydatarequest.com](https://www.clinicalstudydatarequest.com), study 203121). 
 
 ## File structure
 Files for the analysis conducted in this project are:
