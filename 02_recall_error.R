@@ -99,6 +99,8 @@ pl5 <- df %>%
 # Varying thresholds to calculate POEM from daily -------------------------
 
 if(missing_values_analysis == FALSE){
+  # Threshold sensitivity analysis
+  
   threshold_low = 1
   threshold_high = 10
   thresholds = seq(threshold_low, threshold_high)
@@ -128,6 +130,70 @@ if(missing_values_analysis == FALSE){
     geom_line() + 
     scale_x_continuous(labels = thresholds, breaks = thresholds) + 
     labs(x = "Threshold", y = "RMSE", color = "") +
+    scale_colour_viridis_d() +
+    scale_fill_viridis_d() +
+    theme_bw(base_size = 15) +
+    theme(panel.grid.minor.x = element_blank())
+
+  
+  # Plot mean error for each threshold (recall bias)
+  # A. For total scores
+  observed_calculated_POEM_thresholds %>% filter(Item == "total") %>%
+    group_by(threshold) %>%
+    summarise(mean = mean(observed_POEM - calculated_POEM)) %>%
+    ungroup() %>%
+    ggplot(aes(y = mean, x = threshold)) + 
+    geom_point() + 
+    geom_hline(yintercept = 0, colour = "black") + #colour = "darkgreen"
+    scale_x_continuous(labels = as.character(thresholds), breaks = thresholds) + 
+    scale_y_continuous(labels = as.character(seq(-6,8,2)), breaks = seq(-6,8,2), limits = c(-6,8.5))+
+    labs(x = "Threshold", y = "Recall bias (score)") +
+    theme_bw(base_size = 15) +
+    theme(panel.grid.minor.x = element_blank())
+  
+  # B. For individual items
+  observed_calculated_POEM_thresholds %>% filter(Item != "total") %>%
+    group_by(threshold, Item) %>%
+    summarise(mean = mean(observed_POEM - calculated_POEM)) %>%
+    ungroup() %>%
+    ggplot(aes(y = mean, x = threshold, color = fct_reorder2(Item, threshold, mean), group = fct_reorder2(Item, threshold, mean))) + 
+    geom_point() + 
+    geom_line() + 
+    geom_hline(yintercept = 0, colour = "black") + #colour = "darkgreen"
+    scale_x_continuous(labels = thresholds, breaks = thresholds) + 
+    scale_y_continuous(labels = as.character(seq(-1,2.5,0.5)), breaks = seq(-1,2.5,0.5), limits = c(-1.1,2.5))+
+    labs(x = "Threshold", y = "Recall bias (score)", color = "") +
+    scale_colour_viridis_d() +
+    scale_fill_viridis_d() +
+    theme_bw(base_size = 15) +
+    theme(panel.grid.minor.x = element_blank())
+
+
+  # Plot standard deviation of error for each threshold (recall noise)
+  # A. For total scores
+  observed_calculated_POEM_thresholds %>% filter(Item == "total") %>%
+    group_by(threshold) %>%
+    summarise(sd = sd(observed_POEM - calculated_POEM)) %>%
+    ungroup() %>%
+    ggplot(aes(y = sd, x = threshold)) + 
+    geom_point() + 
+    scale_x_continuous(labels = as.character(thresholds), breaks = thresholds) + 
+    scale_y_continuous(labels = as.character(seq(0,10,2)), breaks = seq(0,10,2), limits = c(0,10))+
+    labs(x = "Threshold", y = "Recall noise (score)") +
+    theme_bw(base_size = 15) +
+    theme(panel.grid.minor.x = element_blank())
+  
+  # B. For individual items
+  observed_calculated_POEM_thresholds %>% filter(Item != "total") %>%
+    group_by(threshold, Item) %>%
+    summarise(sd = sd(observed_POEM - calculated_POEM)) %>%
+    ungroup() %>%
+    ggplot(aes(y = sd, x = threshold, color = fct_reorder2(Item, threshold, sd), group = fct_reorder2(Item, threshold, sd))) + 
+    geom_point() + 
+    geom_line() + 
+    scale_x_continuous(labels = thresholds, breaks = thresholds) + 
+    scale_y_continuous(labels = as.character(seq(0,2.5,0.5)), breaks = seq(0,2.5,0.5), limits = c(0,2.5))+
+    labs(x = "Threshold", y = "Recall noise (score)", color = "") +
     scale_colour_viridis_d() +
     scale_fill_viridis_d() +
     theme_bw(base_size = 15) +
