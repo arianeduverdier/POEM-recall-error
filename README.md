@@ -1,6 +1,6 @@
 # Quantifying imperfect recall in the POEM score
 
-This repository contains the code developed for the article currently under review by Duverdier et al. (2023), "Imperfect recall of symptoms in the Patient-Oriented Eczema Measure (POEM): Evaluation of measurement errors in patient-reported outcome measures with a weekly recall period".
+This repository contains the code developed for the article by [Duverdier et al. (2024), "Evaluation of measurement errors in the Patient-Oriented Eczema Measure (POEM) outcome"](https://doi.org/10.1111/cea.14441), published in Clinical & Experimental Allergy.
 
 The Patient-Oriented Eczema Measure (POEM) is the recommended the core outcome measure of eczema symptoms perceived by patients in clinical trials and practice. POEM is reported by recalling the presence/absence of symptoms that occurred in the last seven days. The FDA has highlighted the importance of considering the recall period of patient-reported outcome measures. This project investigated measurement errors in the Patient-Oriented Eczema Measure (POEM) score due to the imperfect recall of symptoms.
 
